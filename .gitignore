@@ -1,4 +1,4 @@
-resources/js/*/node_modules
+js/node_modules
 vendor/
 composer.lock
 .idea
