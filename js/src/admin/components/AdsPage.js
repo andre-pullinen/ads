@@ -1,11 +1,13 @@
-import Component from "flarum/Component";
+import Page from 'flarum/components/Page';
 import Button from "flarum/components/Button";
 import saveSettings from "flarum/utils/saveSettings";
+import Stream from 'flarum/utils/Stream';
 import Alert from "flarum/components/Alert";
+import withAttr from 'flarum/utils/withAttr';
 
-export default class UploadPage extends Component {
-
-    init() {
+export default class UploadPage extends Page {
+    oninit(vnode) {
+        super.oninit(vnode);
         // get the saved settings from the database
         const settings = app.data.settings;
 
@@ -26,12 +28,9 @@ export default class UploadPage extends Component {
         ];
 
         // bind the values of the fields and checkboxes to the getter/setter functions
-        this.positions.forEach(key =>
-            this.values[key] = m.prop(settings[this.addPrefix(key)])
-        );
-        this.settings.forEach(key =>
-            this.values[key] = m.prop(settings[this.addPrefix(key)])
-        );
+        this.positions.forEach((key) => (this.values[key] = Stream(settings[this.addPrefix(key)])));
+
+        this.settings.forEach((key) => (this.values[key] = Stream(!!Number(settings[this.addPrefix(key)]))));
     }
 
     /**
@@ -49,7 +48,7 @@ export default class UploadPage extends Component {
                         m('input', {
                             value: this.values['start-from-post']() || 1,
                             className: 'FormControl',
-                            oninput: m.withAttr('value', this.values['start-from-post'])
+                            oninput: withAttr('value', this.values['start-from-post'])
                         })
                     ]),
 
@@ -58,7 +57,7 @@ export default class UploadPage extends Component {
                         m('input', {
                             value: this.values['between-n-posts']() || 5,
                             className: 'FormControl',
-                            oninput: m.withAttr('value', this.values['between-n-posts'])
+                            oninput: withAttr('value', this.values['between-n-posts'])
                         })
                     ]),
 
@@ -69,7 +68,7 @@ export default class UploadPage extends Component {
                                 value: this.values[position]() || null,
                                 className: 'FormControl',
                                 placeholder: app.translator.trans('flagrow-ads.admin.positions.' + position + '.placeholder'),
-                                oninput: m.withAttr('value', this.values[position])
+                                oninput: withAttr('value', this.values[position])
                             })
                         ])
                     }),
@@ -137,7 +136,7 @@ export default class UploadPage extends Component {
             .then(() => {
                 // return to the initial state and redraw the page
                 this.loading = false;
-                m.redraw();
+                window.location.reload();
             });
     }
 

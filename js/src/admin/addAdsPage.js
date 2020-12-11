@@ -5,7 +5,7 @@ import AdsPage from './components/AdsPage';
 
 export default function () {
     // create the route
-    app.routes['flagrow-ads'] = {path: '/flagrow/ads', component: AdsPage.component()};
+    app.routes['flagrow-ads'] = {path: '/flagrow/ads', component: AdsPage};
 
     // bind the route we created to the three dots settings button
     app.extensionSettings['flagrow-ads'] = () => m.route(app.route('flagrow-ads'));
@@ -19,7 +19,7 @@ export default function () {
                 //children: 'Ads',
                 description: app.translator.trans('flagrow-ads.admin.tab.description')
             },
-            'ads'
+            app.translator.trans('flagrow-ads.admin.tab.title')
             )
         );
     });

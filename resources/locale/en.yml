@@ -16,4 +16,5 @@ flagrow-ads:
             start-from-post: Specify from which post to start to show an ad
             between-n-posts: Specify after how many posts to place an ad
         tab:
+            title: Advertising
             description: Set ads preferences and positions.
