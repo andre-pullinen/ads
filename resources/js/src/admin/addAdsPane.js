@@ -11,11 +11,16 @@ export default function () {
     app.extensionSettings['flagrow-ads'] = () => m.route(app.route('flagrow-ads'));
 
     extend(AdminNav.prototype, 'items', items => {
-        items.add('flagrow-ads', AdminLinkButton.component({
-            href: app.route('flagrow-ads'),
-            icon: 'fas fa-audio-description',
-            children: 'Ads',
-            description: app.translator.trans('flagrow-ads.admin.tab.description')
-        }));
+        items.add(
+            'flagrow-ads',
+            AdminLinkButton.component({
+                href: app.route('flagrow-ads'),
+                icon: 'fas fa-audio-description',
+                //children: 'Ads',
+                description: app.translator.trans('flagrow-ads.admin.tab.description')
+            },
+            'ads'
+            )
+        );
     });
 }

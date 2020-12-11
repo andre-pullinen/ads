@@ -5,7 +5,6 @@ namespace Flagrow\Ads\Listeners;
 
 use Flarum\Api\Event\Serializing;
 use Flarum\Api\Serializer\ForumSerializer;
-use Flarum\Event\PrepareApiAttributes;
 use Illuminate\Contracts\Events\Dispatcher;
 use Flarum\Settings\SettingsRepositoryInterface;
 
@@ -51,7 +50,8 @@ class LoadSettingsFromDatabase
             $additionalSettings = [];
 
             foreach($this->addSettings as $key) {
-                $additionalSettings[$this->prefix($key)] = $this->settings->get($this->prefix($key));
+                $attribute = $this->prefix($key);
+                $additionalSettings[$attribute] = $this->settings->get($attribute);
             }
 
             $event->attributes = array_merge($event->attributes, $additionalSettings);

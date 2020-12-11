@@ -1,4 +1,3 @@
-import {extend} from "flarum/extend";
 import app from "flarum/app";
 import addAdsPane from "./addAdsPane";
 
