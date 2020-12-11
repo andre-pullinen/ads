@@ -76,10 +76,9 @@ export default class UploadPage extends Page {
                     Button.component({
                         type: 'submit',
                         className: 'Button Button--primary',
-                        children: app.translator.trans('flagrow-ads.admin.buttons.save'),
                         loading: this.loading,
                         disabled: !this.changed()
-                    }),
+                    }, app.translator.trans('flagrow-ads.admin.buttons.save')),
                 ),
             ])
         ];
@@ -126,10 +125,7 @@ export default class UploadPage extends Page {
         saveSettings(settings)
             .then(() => {
                 // on success, show popup
-                app.alerts.show(this.successAlert = new Alert({
-                    type: 'success',
-                    children: app.translator.trans('core.admin.basics.saved_message')
-                }));
+                app.alerts.show({ type: 'success' }, app.translator.trans('core.admin.basics.saved_message'));
             })
             .catch(() => {
             })
