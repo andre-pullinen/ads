@@ -1,6 +1,6 @@
 {
-    "name": "flagrow/ads",
-    "description": "Bombarding your users with ads.",
+    "name": "andre-pullinen/ads",
+    "description": "Origin by Flagrow. Bombarding your users with ads.",
     "keywords": [
         "flarum", "flagrow",
         "ads", "advertising"
@@ -17,14 +17,19 @@
             "name": "Clark Winkelmann",
             "email": "clark.winkelmann@gmail.com",
             "homepage": "https://clarkwinkelmann.com"
+        },
+        {
+            "name": "Andre Pullinen",
+            "email": "andre.pullinen@gmail.com",
+            "homepage": "https://github.com/andre-pullinen"
         }
     ],
     "support": {
-        "issues": "https://github.com/flagrow/ads/issues",
-        "source": "https://github.com/flagrow/ads"
+        "issues": "https://github.com/andre-pullinen/ads/issues",
+        "source": "https://github.com/andre-pullinen/ads"
     },
     "require": {
-        "flarum/core": "^0.1.0-beta.8"
+        "flarum/core": "^0.1.0-beta.14"
     },
     "extra": {
         "flarum-extension": {
