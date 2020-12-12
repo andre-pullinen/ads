@@ -61,8 +61,9 @@ export default class UploadPage extends Page {
                             m('fieldset', [
                                 m('label', app.translator.trans('flagrow-ads.admin.settings.adsense-client-id')),
                                 m('input.FormControl', {
-                                    bidi: this.values['adsense-enabled'],
                                     placeholder: 'ca-pub-XXXXXXXXXXXXXXXX',
+                                    value: this.values['adsense-client-id']() || '',
+                                    oninput: withAttr('value', this.values['adsense-client-id']),
                                 }),
                             ]),
                         ] : null),
