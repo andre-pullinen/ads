@@ -2,7 +2,7 @@ import Page from 'flarum/components/Page';
 import Button from "flarum/components/Button";
 import saveSettings from "flarum/utils/saveSettings";
 import Stream from 'flarum/utils/Stream';
-import Alert from "flarum/components/Alert";
+import Switch from 'flarum/components/Switch';
 import withAttr from 'flarum/utils/withAttr';
 
 export default class UploadPage extends Page {
@@ -19,10 +19,12 @@ export default class UploadPage extends Page {
         this.positions = [
             'under-header',
             'between-posts',
-            'under-nav-items'
+            'under-nav-items',
+            'adsense-client-id',
         ];
 
         this.settings = [
+    	    'adsense-enabled',
     	    'start-from-post',
             'between-n-posts'
         ];
@@ -41,45 +43,66 @@ export default class UploadPage extends Page {
     view() {
         return [
             m('div', {className: 'AdsPage'}, [
-                m('form', {onsubmit: this.onsubmit.bind(this)},
+                m('div', { className: 'container' }, [
+                    m('form', {onsubmit: this.onsubmit.bind(this)},
 
-                    m('fieldset', {className: 'AdsPage-settings'}, [
-                        m('legend', {}, app.translator.trans('flagrow-ads.admin.settings.start-from-post')),
-                        m('input', {
-                            value: this.values['start-from-post']() || 1,
-                            className: 'FormControl',
-                            oninput: withAttr('value', this.values['start-from-post'])
-                        })
-                    ]),
+                        m('fieldset', {className: 'AdsPage-settings'}, [
+                            m('label', Switch.component({
+                                state: this.values['adsense-enabled']() > 0,
+                                onchange: this.values['adsense-enabled'](),
+                            }), app.translator.trans('flagrow-ads.admin.settings.adsense-enable')),
+                        ]),
 
-                    m('fieldset', {className: 'AdsPage-settings'}, [
-                        m('legend', {}, app.translator.trans('flagrow-ads.admin.settings.between-n-posts')),
-                        m('input', {
-                            value: this.values['between-n-posts']() || 5,
-                            className: 'FormControl',
-                            oninput: withAttr('value', this.values['between-n-posts'])
-                        })
-                    ]),
+                        (this.values['adsense-enabled']() > 0 ? [
+                            m('.Form-group', [
+                                m('label', app.translator.trans('flagrow-ads.admin.settings.adsense-client-id')),
+                                m('input.FormControl', {
+                                    bidi: this.values['adsense-enabled'],
+                                    placeholder: 'ca-pub-XXXXXXXXXXXXXXXX',
+                                }),
+                            ]),
+                        ] : null),
 
-                    this.positions.map(position => {
-                        return m('fieldset', {className: 'AdsPage-' + position}, [
-                            m('legend', {}, app.translator.trans('flagrow-ads.admin.positions.' + position + '.title')),
-                            m('textarea', {
-                                value: this.values[position]() || null,
+                        m('fieldset', {className: 'AdsPage-settings'}, [
+                            m('legend', {}, app.translator.trans('flagrow-ads.admin.settings.start-from-post')),
+                            m('input', {
+                                type: 'number',
+                                value: this.values['start-from-post']() || 1,
                                 className: 'FormControl',
-                                placeholder: app.translator.trans('flagrow-ads.admin.positions.' + position + '.placeholder'),
-                                oninput: withAttr('value', this.values[position])
+                                oninput: withAttr('value', this.values['start-from-post'])
                             })
-                        ])
-                    }),
+                        ]),
 
-                    Button.component({
-                        type: 'submit',
-                        className: 'Button Button--primary',
-                        loading: this.loading,
-                        disabled: !this.changed()
-                    }, app.translator.trans('flagrow-ads.admin.buttons.save')),
-                ),
+                        m('fieldset', {className: 'AdsPage-settings'}, [
+                            m('legend', {}, app.translator.trans('flagrow-ads.admin.settings.between-n-posts')),
+                            m('input', {
+                                type: 'number',
+                                value: this.values['between-n-posts']() || 5,
+                                className: 'FormControl',
+                                oninput: withAttr('value', this.values['between-n-posts'])
+                            })
+                        ]),
+
+                        this.positions.map(position => {
+                            return m('fieldset', {className: 'AdsPage-' + position}, [
+                                m('legend', {}, app.translator.trans('flagrow-ads.admin.positions.' + position + '.title')),
+                                m('textarea', {
+                                    value: this.values[position]() || null,
+                                    className: 'FormControl',
+                                    placeholder: app.translator.trans('flagrow-ads.admin.positions.' + position + '.placeholder'),
+                                    oninput: withAttr('value', this.values[position])
+                                })
+                            ])
+                        }),
+
+                        Button.component({
+                            type: 'submit',
+                            className: 'Button Button--primary',
+                            loading: this.loading,
+                            disabled: !this.changed()
+                        }, app.translator.trans('flagrow-ads.admin.buttons.save')),
+                    ),
+                ]),
             ])
         ];
     }
@@ -91,8 +114,8 @@ export default class UploadPage extends Page {
      * @returns boolean
      */
     changed() {
-        var positionsChecked = this.positions.some(key => this.values[key]() !== app.data.settings[this.addPrefix(key)]);
-        var settingsChecked = this.settings.some(key => this.values[key]() !== app.data.settings[this.addPrefix(key)]);
+        const positionsChecked = this.positions.some(key => this.values[key]() !== app.data.settings[this.addPrefix(key)]);
+        const settingsChecked = this.settings.some(key => this.values[key]() !== app.data.settings[this.addPrefix(key)]);
         return positionsChecked || settingsChecked;
     }
 

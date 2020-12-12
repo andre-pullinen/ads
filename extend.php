@@ -8,7 +8,8 @@ use Flarum\Extend;
 return [
     (new Extend\Frontend('admin'))
         ->css(__DIR__ . '/resources/less/admin.less')
-        ->js(__DIR__.'/js/dist/admin.js'),
+        ->js(__DIR__.'/js/dist/admin.js')
+        ->content(Listeners\AddAdsenseJs::class),
     (new Extend\Frontend('forum'))
         ->css(__DIR__ . '/resources/less/forum.less')
         ->js(__DIR__.'/js/dist/forum.js'),
