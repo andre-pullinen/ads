@@ -45,16 +45,20 @@ export default class UploadPage extends Page {
             m('div', {className: 'AdsPage'}, [
                 m('div', { className: 'container' }, [
                     m('form', {onsubmit: this.onsubmit.bind(this)},
+                        m('h3', app.translator.trans('flagrow-ads.admin.settings.title')),
 
                         m('fieldset', {className: 'AdsPage-settings'}, [
-                            m('label', Switch.component({
-                                state: this.values['adsense-enabled']() > 0,
-                                onchange: this.values['adsense-enabled'](),
-                            }), app.translator.trans('flagrow-ads.admin.settings.adsense-enable')),
+                            Switch.component(
+                                {
+                                    state: this.values['adsense-enabled']() || false,
+                                    onchange: this.values['adsense-enabled'],
+                                },
+                                app.translator.trans('flagrow-ads.admin.settings.adsense-enable')
+                            ),
                         ]),
 
                         (this.values['adsense-enabled']() > 0 ? [
-                            m('.Form-group', [
+                            m('fieldset', [
                                 m('label', app.translator.trans('flagrow-ads.admin.settings.adsense-client-id')),
                                 m('input.FormControl', {
                                     bidi: this.values['adsense-enabled'],
