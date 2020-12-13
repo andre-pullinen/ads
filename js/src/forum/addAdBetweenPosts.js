@@ -6,6 +6,8 @@ export default function() {
     extend(PostStream.prototype, 'view', function(component) {
         const advertisement = app.forum.attribute('flagrow.ads.between-posts');
 
+        alert(component.children.length)
+
         if (advertisement && component.children.length) {
             const start = parseInt(app.forum.attribute('flagrow.ads.start-from-post') || 1);
             const between = parseInt(app.forum.attribute('flagrow.ads.between-n-posts') || 5);

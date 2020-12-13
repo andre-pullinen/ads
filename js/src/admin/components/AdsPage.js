@@ -20,6 +20,9 @@ export default class UploadPage extends Page {
             'under-header',
             'between-posts',
             'under-nav-items',
+        ];
+
+        this.properties = [
             'adsense-client-id',
         ];
 
@@ -31,6 +34,8 @@ export default class UploadPage extends Page {
 
         // bind the values of the fields and checkboxes to the getter/setter functions
         this.positions.forEach((key) => (this.values[key] = Stream(settings[this.addPrefix(key)])));
+
+        this.properties.forEach((key) => (this.values[key] = Stream(settings[this.addPrefix(key)])));
 
         this.settings.forEach((key) => (this.values[key] = Stream(!!Number(settings[this.addPrefix(key)]))));
     }
@@ -70,20 +75,18 @@ export default class UploadPage extends Page {
 
                         m('fieldset', {className: 'AdsPage-settings'}, [
                             m('legend', {}, app.translator.trans('flagrow-ads.admin.settings.start-from-post')),
-                            m('input', {
+                            m('input.FormControl', {
                                 type: 'number',
                                 value: this.values['start-from-post']() || 1,
-                                className: 'FormControl',
                                 oninput: withAttr('value', this.values['start-from-post'])
                             })
                         ]),
 
                         m('fieldset', {className: 'AdsPage-settings'}, [
                             m('legend', {}, app.translator.trans('flagrow-ads.admin.settings.between-n-posts')),
-                            m('input', {
+                            m('input.FormControl', {
                                 type: 'number',
                                 value: this.values['between-n-posts']() || 5,
-                                className: 'FormControl',
                                 oninput: withAttr('value', this.values['between-n-posts'])
                             })
                         ]),
@@ -91,9 +94,8 @@ export default class UploadPage extends Page {
                         this.positions.map(position => {
                             return m('fieldset', {className: 'AdsPage-' + position}, [
                                 m('legend', {}, app.translator.trans('flagrow-ads.admin.positions.' + position + '.title')),
-                                m('textarea', {
+                                m('textarea.FormControl', {
                                     value: this.values[position]() || null,
-                                    className: 'FormControl',
                                     placeholder: app.translator.trans('flagrow-ads.admin.positions.' + position + '.placeholder'),
                                     oninput: withAttr('value', this.values[position])
                                 })
@@ -120,8 +122,9 @@ export default class UploadPage extends Page {
      */
     changed() {
         const positionsChecked = this.positions.some(key => this.values[key]() !== app.data.settings[this.addPrefix(key)]);
+        const propertiesChecked = this.properties.some(key => this.values[key]() !== app.data.settings[this.addPrefix(key)]);
         const settingsChecked = this.settings.some(key => this.values[key]() !== app.data.settings[this.addPrefix(key)]);
-        return positionsChecked || settingsChecked;
+        return positionsChecked || settingsChecked || propertiesChecked;
     }
 
     /**
@@ -147,6 +150,7 @@ export default class UploadPage extends Page {
 
         // gets all the values from the form
         this.positions.forEach(key => settings[this.addPrefix(key)] = this.values[key]());
+        this.properties.forEach(key => settings[this.addPrefix(key)] = this.values[key]());
         this.settings.forEach(key => settings[this.addPrefix(key)] = this.values[key]());
 
         // actually saves everything in the database
