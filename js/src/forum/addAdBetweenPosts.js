@@ -14,7 +14,7 @@ export default function() {
 
             // Insert an inside every n comment
             commentPosts.forEach((post, i) => {
-                const postNum = parseInt(post.attrs['data-number']);
+                const postNum = post.attrs['data-number'];
                 if (postNum === start || (postNum - start) % between === 0) {
                     alert("push something")
                     alert(Object.getOwnPropertyNames(post))
