@@ -37,7 +37,7 @@ export default class UploadPage extends Page {
 
         this.properties.forEach((key) => (this.values[key] = Stream(settings[this.addPrefix(key)])));
 
-        this.settings.forEach((key) => (this.values[key] = Stream(!!Number(settings[this.addPrefix(key)]))));
+        this.settings.forEach((key) => (this.values[key] = Stream(Number(settings[this.addPrefix(key)]))));
     }
 
     /**
