@@ -7,15 +7,15 @@ export default function() {
         const advertisement = app.forum.attribute('flagrow.ads.between-posts');
 
         if (advertisement && component.children.length) {
-            const start = parseInt(app.forum.attribute('flagrow.ads.start-from-post') || 1);
-            const between = parseInt(app.forum.attribute('flagrow.ads.between-n-posts') || 5);
+            const start = parseInt(app.forum.attribute('flagrow.ads.start-from-post') ? app.forum.attribute('flagrow.ads.between-n-posts') : 1);
+            const between = parseInt(app.forum.attribute('flagrow.ads.between-n-posts') ? app.forum.attribute('flagrow.ads.between-n-posts') : 5);
             // We need to copy all comments first, otherwise -there is no way to detect and jump the last comment
             const commentPosts = component.children.filter(post => post.attrs['data-type'] === 'comment');
 
             // Insert an inside every n comment
             commentPosts.forEach((post, i) => {
                 const postNum = post.attrs['data-number'];
-                if (postNum === start || (postNum - start) % between === 0) {
+                if (postNum === start || ((postNum - start) % between) === 0) {
                     alert("push something")
                     alert(Object.getOwnPropertyNames(post))
                     alert(Object.getOwnPropertyNames(post.children))
