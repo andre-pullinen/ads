@@ -27,7 +27,7 @@ class AddAdsenseJs
 
         if($statusGoogle) {
             // Add google analytics if tracking UA only has been configured.
-            $js = file_get_contents(dirname(dirname(__DIR__)) . '/resources/js/google-adsense.html');
+            $js = file_get_contents(dirname(__DIR__, 2) . '/resources/js/google-adsense.html');
             $js = str_replace("%%CLIENT_ID%%", $adsenseClientId, $js);
 
             $document->payload['adsenseClientId'] = $adsenseClientId;
