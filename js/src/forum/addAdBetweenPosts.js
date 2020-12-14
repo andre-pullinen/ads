@@ -16,9 +16,6 @@ export default function() {
             commentPosts.forEach((post, i) => {
                 const postNum = post.attrs['data-number'];
                 if (postNum === start || ((postNum - start) % between) === 0) {
-                    alert("push something")
-                    alert(Object.getOwnPropertyNames(post))
-                    alert(Object.getOwnPropertyNames(post.children))
                     post.children.push(
                         m('div.Flagrow-Ads-fake-poststream-item',
                             m('article.Post.EventPost',
