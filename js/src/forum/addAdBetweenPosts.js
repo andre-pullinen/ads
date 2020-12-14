@@ -14,6 +14,11 @@ export default function() {
 
             // Insert an inside every n comment
             commentPosts.forEach((post, i) => {
+                alert("i >= start" + i >= start)
+                alert("i >= start && (i - start)" + i >= start && (i - start))
+                alert("i >= start && (i - start) % between === 0" + i >= start && (i - start) % between === 0)
+                alert("between" + between)
+                alert("i < commentPosts.length - 1" + i < commentPosts.length - 1)
                 if (i >= start && (i - start) % between === 0 && i < commentPosts.length - 1) {
                     alert("push something")
                     alert(Object.getOwnPropertyNames(post))
