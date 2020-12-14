@@ -7,8 +7,8 @@ export default function() {
         const advertisement = app.forum.attribute('flagrow.ads.between-posts');
 
         if (advertisement && component.children.length) {
-            const start = parseInt(app.forum.attribute('flagrow.ads.start-from-post') ? app.forum.attribute('flagrow.ads.between-n-posts') : 1);
-            const between = parseInt(app.forum.attribute('flagrow.ads.between-n-posts') ? app.forum.attribute('flagrow.ads.between-n-posts') : 5);
+            const start = Number(app.forum.attribute('flagrow.ads.start-from-post'));
+            const between = Number(app.forum.attribute('flagrow.ads.between-n-posts'));
             // We need to copy all comments first, otherwise -there is no way to detect and jump the last comment
             const commentPosts = component.children.filter(post => post.attrs['data-type'] === 'comment');
 
