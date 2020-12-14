@@ -50,7 +50,7 @@ export default class UploadPage extends Page {
             m('div', {className: 'AdsPage'}, [
                 m('div', { className: 'container' }, [
                     m('form', {onsubmit: this.onsubmit.bind(this)},
-                        m('h3', app.translator.trans('flagrow-ads.admin.settings.title')),
+                        m('h3', app.translator.trans('flagrow-ads.admin.settings.adsense-title')),
 
                         m('fieldset', {className: 'AdsPage-settings'}, [
                             Switch.component(
@@ -63,18 +63,20 @@ export default class UploadPage extends Page {
                         ]),
 
                         (this.values['adsense-enabled']() > 0 ? [
-                            m('fieldset', [
+                            m('fieldset', {className: 'AdsPage-settings'},  [
                                 m('label', app.translator.trans('flagrow-ads.admin.settings.adsense-client-id')),
                                 m('input.FormControl', {
-                                    placeholder: 'ca-pub-XXXXXXXXXXXXXXXX',
+                                    placeholder: 'pub-XXXXXXXXXXXXXXXX',
                                     value: this.values['adsense-client-id']() || '',
                                     oninput: withAttr('value', this.values['adsense-client-id']),
                                 }),
                             ]),
                         ] : null),
 
+                        m('h3', app.translator.trans('flagrow-ads.admin.settings.position-title')),
+
                         m('fieldset', {className: 'AdsPage-settings'}, [
-                            m('legend', {}, app.translator.trans('flagrow-ads.admin.settings.start-from-post')),
+                            m('label', {}, app.translator.trans('flagrow-ads.admin.settings.start-from-post')),
                             m('input.FormControl', {
                                 type: 'number',
                                 value: this.values['start-from-post']() || 1,
@@ -83,7 +85,7 @@ export default class UploadPage extends Page {
                         ]),
 
                         m('fieldset', {className: 'AdsPage-settings'}, [
-                            m('legend', {}, app.translator.trans('flagrow-ads.admin.settings.between-n-posts')),
+                            m('label', {}, app.translator.trans('flagrow-ads.admin.settings.between-n-posts')),
                             m('input.FormControl', {
                                 type: 'number',
                                 value: this.values['between-n-posts']() || 5,
@@ -93,7 +95,7 @@ export default class UploadPage extends Page {
 
                         this.positions.map(position => {
                             return m('fieldset', {className: 'AdsPage-' + position}, [
-                                m('legend', {}, app.translator.trans('flagrow-ads.admin.positions.' + position + '.title')),
+                                m('label', {}, app.translator.trans('flagrow-ads.admin.positions.' + position + '.title')),
                                 m('textarea.FormControl', {
                                     value: this.values[position]() || null,
                                     placeholder: app.translator.trans('flagrow-ads.admin.positions.' + position + '.placeholder'),
