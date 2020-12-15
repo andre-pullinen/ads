@@ -1,7 +1,6 @@
 import { extend } from 'flarum/extend';
 import app from 'flarum/app';
 import PostStream from 'flarum/components/PostStream';
-import AdPostType from './components/AdPostType';
 
 export default function() {
     extend(PostStream.prototype, 'view', function(component) {
@@ -18,12 +17,11 @@ export default function() {
                 const postNum = post.attrs['data-number'];
                 if (postNum === start || ((postNum - start) % between) === 0) {
                     post.children.push(
-                        AdPostType.component({post: advertisement}, advertisement),
-                        // m('div.Flagrow-Ads-fake-poststream-item',
-                        //     m('article.Post.EventPost',
-                        //         m('div.Flagrow-Ads-between-posts.EventPost-info', m.trust(advertisement))
-                        //     )
-                        // )
+                        m('div.Flagrow-Ads-fake-poststream-item',
+                            m('article.Post.EventPost',
+                                m('div.Flagrow-Ads-between-posts.EventPost-info', m.trust(advertisement))
+                            )
+                        )
                     );
                 }
             });
