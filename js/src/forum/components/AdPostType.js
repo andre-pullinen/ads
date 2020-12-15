@@ -5,6 +5,14 @@ export default class AdPostType extends EventPost {
         return 'fas fa-audio-description';
     }
 
+    description() {
+        return m('div', {
+            className: 'Flagrow-Ads-between-posts EventPost-info'
+        }, [
+            m.trust(this.props.post.contentHtml())
+        ]);
+    }
+
     content() {
         return m('div', {
             className: 'Flagrow-Ads-between-posts EventPost-info'
