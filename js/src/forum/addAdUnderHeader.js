@@ -1,11 +1,8 @@
-import { extend } from 'flarum/extend';
-import HeaderPrimary from 'flarum/components/HeaderPrimary';
+import { extend } from 'flarum/extend'
+import HeaderPrimary from 'flarum/components/HeaderPrimary'
 
 export default function () {
-    extend(HeaderPrimary.prototype, 'config', (isInitialized, context) => {
-
-        alert(isInitialized)
-        if (isInitialized) { return; }
+    extend(HeaderPrimary.prototype, 'view', (component) => {
 
         alert(document.getElementsByClassName('Flagrow-Ads-under-header').length)
         if (document.getElementsByClassName('Flagrow-Ads-under-header').length) {
