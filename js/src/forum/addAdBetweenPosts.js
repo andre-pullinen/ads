@@ -18,7 +18,7 @@ export default function() {
                 const postNum = post.attrs['data-number'];
                 if (postNum === start || ((postNum - start) % between) === 0) {
                     post.children.push(
-                        AdPostType.component({}, advertisement),
+                        AdPostType.component({post: advertisement}, advertisement),
                         // m('div.Flagrow-Ads-fake-poststream-item',
                         //     m('article.Post.EventPost',
                         //         m('div.Flagrow-Ads-between-posts.EventPost-info', m.trust(advertisement))
